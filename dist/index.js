@@ -134,10 +134,11 @@ function run() {
                     }
                 });
                 process.stderr.write(`\n${jestString}`);
-                // let testResult = junitString.replace(/[^0-9.]/g,' ').split(' ');
-                // testResult = testResult.filter(element => !['.',''].includes(element));
-                // process.stdout.write(`\nTotal Test Cases: ${parseInt(testResult[0])}`);
-                // process.stdout.write(`\nFailed Test Cases: ${parseInt(testResult[1])}`);
+                let testResult = jestString.replace(/[^0-9.]/g, ' ').split(' ');
+                testResult = testResult.filter(element => !['.', ''].includes(element));
+                process.stdout.write(`\nTotal Test Cases: ${parseInt(testResult[2])}`);
+                process.stdout.write(`\nPassed Test Cases: ${parseInt(testResult[1])}`);
+                process.stdout.write(`\nFailed Test Cases: ${parseInt(testResult[0])}`);
                 // process.stdout.write(`\nEvaluating score...\n`);
                 // const totalTests = parseInt(testResult[0]);
                 // const totalPassed = (parseInt(testResult[0]) - parseInt(testResult[1]));
@@ -174,6 +175,11 @@ function run() {
                     }
                 });
                 process.stderr.write(`\n${jestString}`);
+                let testResult = jestString.replace(/[^0-9.]/g, ' ').split(' ');
+                testResult = testResult.filter(element => !['.', ''].includes(element));
+                process.stdout.write(`\nTotal Test Cases: ${parseInt(testResult[2])}`);
+                process.stdout.write(`\nPassed Test Cases: ${parseInt(testResult[1])}`);
+                process.stdout.write(`\nFailed Test Cases: ${parseInt(testResult[0])}`);
                 // const [repoOwner, repoName] = githubRepo.split('/');
                 // const junitReports = fs.readFileSync(
                 //   path.resolve(repoWorkSpace, 'target/surefire-reports/com.driver.test.TestCases.txt')
