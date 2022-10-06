@@ -127,7 +127,12 @@ function run() {
                 });
                 const jestReports = fs_1.default.readFileSync(path_1.default.resolve(repoWorkSpace, 'output.txt'));
                 let jestString = jestReports.toString();
-                // junitString = junitString.split('\n')[3];
+                let jestArr = jestString.split('\n');
+                jestArr.forEach(line => {
+                    if (line.includes('Tests:')) {
+                        jestString = line;
+                    }
+                });
                 process.stderr.write(`\n${jestString}`);
                 // let testResult = junitString.replace(/[^0-9.]/g,' ').split(' ');
                 // testResult = testResult.filter(element => !['.',''].includes(element));
@@ -162,7 +167,12 @@ function run() {
             if (repoWorkSpace && githubRepo) {
                 const jestReports = fs_1.default.readFileSync(path_1.default.resolve(repoWorkSpace, 'output.txt'));
                 let jestString = jestReports.toString();
-                // junitString = junitString.split('\n')[3];
+                let jestArr = jestString.split('\n');
+                jestArr.forEach(line => {
+                    if (line.includes('Tests:')) {
+                        jestString = line;
+                    }
+                });
                 process.stderr.write(`\n${jestString}`);
                 // const [repoOwner, repoName] = githubRepo.split('/');
                 // const junitReports = fs.readFileSync(

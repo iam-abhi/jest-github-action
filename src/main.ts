@@ -106,7 +106,12 @@ async function run(): Promise<void> {
         path.resolve(repoWorkSpace, 'output.txt')
       );
       let jestString = jestReports.toString();
-      // junitString = junitString.split('\n')[3];
+      let jestArr = jestString.split('\n');
+      jestArr.forEach(line => {
+        if(line.includes('Tests:')){
+          jestString = line
+        }
+      })
       process.stderr.write(`\n${jestString}`);
       // let testResult = junitString.replace(/[^0-9.]/g,' ').split(' ');
       // testResult = testResult.filter(element => !['.',''].includes(element));
@@ -150,7 +155,12 @@ async function run(): Promise<void> {
         path.resolve(repoWorkSpace, 'output.txt')
       );
       let jestString = jestReports.toString();
-      // junitString = junitString.split('\n')[3];
+      let jestArr = jestString.split('\n');
+      jestArr.forEach(line => {
+        if(line.includes('Tests:')){
+          jestString = line
+        }
+      })
       process.stderr.write(`\n${jestString}`);
       // const [repoOwner, repoName] = githubRepo.split('/');
 
