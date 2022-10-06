@@ -38,10 +38,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const exec = __importStar(__nccwpck_require__(1514));
 const github = __importStar(__nccwpck_require__(5438));
+const fs_1 = __importDefault(__nccwpck_require__(5747));
+const path_1 = __importDefault(__nccwpck_require__(5622));
 // acciotest.json
 /*
 {
@@ -120,6 +125,46 @@ function run() {
                 const npmTest = yield exec.exec('npm test', undefined, {
                     cwd: repoWorkSpace
                 });
+                const jestReports = fs_1.default.readFileSync(path_1.default.resolve(repoWorkSpace, 'output.txt'));
+                let jestString = jestReports.toString();
+                // junitString = junitString.split('\n')[3];
+                process.stderr.write(`\n${jestString}`);
+                // let testResult = junitString.replace(/[^0-9.]/g,' ').split(' ');
+                // testResult = testResult.filter(element => !['.',''].includes(element));
+                // process.stdout.write(`\nTotal Test Cases: ${parseInt(testResult[0])}`);
+                // process.stdout.write(`\nFailed Test Cases: ${parseInt(testResult[1])}`);
+                // process.stdout.write(`\nEvaluating score...\n`);
+                // const totalTests = parseInt(testResult[0]);
+                // const totalPassed = (parseInt(testResult[0]) - parseInt(testResult[1]));
+                // let testResults = {
+                //   totalTests,
+                //   totalPassed,
+                // }
+                // process.stdout.write(`\n${token}`);
+                // process.stdout.write(`\n${testResults}`);
+                // process.stdout.write(`\n${assignmentName}`);
+                // process.stdout.write(`\n${repoName}`);
+                // process.stdout.write(`\n${studentUserName}`);
+                // const {data: score} = await axios.post(
+                //   `${ACCIO_API_ENDPOINT}/github/get-score`,
+                //   {
+                //     token,
+                //     testResults,
+                //     assignmentName,
+                //     repoName,
+                //     studentGithubUserName: studentUserName
+                //   }
+                // );
+                process.exit(0);
+            }
+        }
+        catch (error) {
+            if (repoWorkSpace && githubRepo) {
+                const jestReports = fs_1.default.readFileSync(path_1.default.resolve(repoWorkSpace, 'output.txt'));
+                let jestString = jestReports.toString();
+                // junitString = junitString.split('\n')[3];
+                process.stderr.write(`\n${jestString}`);
+                // const [repoOwner, repoName] = githubRepo.split('/');
                 // const junitReports = fs.readFileSync(
                 //   path.resolve(repoWorkSpace, 'target/surefire-reports/com.driver.test.TestCases.txt')
                 // );
@@ -152,45 +197,7 @@ function run() {
                 //     studentGithubUserName: studentUserName
                 //   }
                 // );
-                process.exit(0);
             }
-        }
-        catch (error) {
-            // if(repoWorkSpace && githubRepo){
-            //   const [repoOwner, repoName] = githubRepo.split('/');
-            //   const junitReports = fs.readFileSync(
-            //     path.resolve(repoWorkSpace, 'target/surefire-reports/com.driver.test.TestCases.txt')
-            //   );
-            //   let junitString = junitReports.toString();
-            //   junitString = junitString.split('\n')[3];
-            //   process.stderr.write(`\n${junitString}`);
-            //   let testResult = junitString.replace(/[^0-9.]/g,' ').split(' ');
-            //   testResult = testResult.filter(element => !['.',''].includes(element));
-            //   process.stdout.write(`\nTotal Test Cases: ${parseInt(testResult[0])}`);
-            //   process.stdout.write(`\nFailed Test Cases: ${parseInt(testResult[1])}`);
-            //   process.stdout.write(`\nEvaluating score...\n`);
-            //   const totalTests = parseInt(testResult[0]);
-            //   const totalPassed = (parseInt(testResult[0]) - parseInt(testResult[1]));
-            //   let testResults = {
-            //     totalTests,
-            //     totalPassed,
-            //   }
-            //   process.stdout.write(`\n${token}`);
-            //   process.stdout.write(`\n${testResults}`);
-            //   process.stdout.write(`\n${assignmentName}`);
-            //   process.stdout.write(`\n${repoName}`);
-            //   process.stdout.write(`\n${studentUserName}`);
-            //   const {data: score} = await axios.post(
-            //     `${ACCIO_API_ENDPOINT}/github/get-score`,
-            //     {
-            //       token,
-            //       testResults,
-            //       assignmentName,
-            //       repoName,
-            //       studentGithubUserName: studentUserName
-            //     }
-            //   );
-            // }
             process.stderr.write(`Caught Error`);
             if (error instanceof Error)
                 core.setFailed(error.message);
