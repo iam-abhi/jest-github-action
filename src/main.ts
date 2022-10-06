@@ -98,7 +98,7 @@ async function run(): Promise<void> {
         cwd: repoWorkSpace
       });
 
-      const jestExec = await exec.exec('npm install', undefined, {
+      const npmTest = await exec.exec('npm test', undefined, {
         cwd: repoWorkSpace
       });
 

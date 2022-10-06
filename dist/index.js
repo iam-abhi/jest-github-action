@@ -118,7 +118,7 @@ function run() {
                 const npmInstall = yield exec.exec('npm install', undefined, {
                     cwd: repoWorkSpace
                 });
-                const jestExec = yield exec.exec('npm install', undefined, {
+                const npmTest = yield exec.exec('npm test', undefined, {
                     cwd: repoWorkSpace
                 });
                 // const junitReports = fs.readFileSync(
